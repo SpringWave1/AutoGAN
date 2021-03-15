@@ -10,7 +10,10 @@ import sys
 import tarfile
 
 import numpy as np
-import tensorflow as tf
+# import tensorflow as tf
+# migrate
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 from six.moves import urllib
 from tqdm import tqdm
 
