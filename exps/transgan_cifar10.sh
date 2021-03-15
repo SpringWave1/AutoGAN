@@ -4,7 +4,7 @@ python train.py \
 -gen_bs 128 \
 -dis_bs 64 \
 --dataset cifar10 \
---bottom_width 4 \
+--bottom_width 8 \
 --img_size 32 \
 --max_iter 50000 \
 --gen_model TransGAN_CIFAR \
