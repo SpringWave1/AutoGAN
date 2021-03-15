@@ -194,7 +194,11 @@ def parse_args():
                         help='the window size')
     parser.add_argument('--arch', nargs='+', type=int,
                         help='the vector of a discovered architecture')
-
+    # add the parameters needed
+    parser.add_argument('--d_depth', type=int, default=7,
+                        help='fade in step')
+    parser.add_argument('--g_depth', type=int, default=5,
+                        help='fade in step')
     opt = parser.parse_args()
 
     return opt
