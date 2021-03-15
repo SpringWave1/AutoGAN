@@ -134,7 +134,7 @@ def train(args, gen_net: nn.Module, dis_net: nn.Module, gen_optimizer, dis_optim
         dis_optimizer.zero_grad()
 
         real_validity = dis_net(real_imgs)
-        fake_imgs = gen_net(z).detach()
+        fake_imgs = gen_net(z, epoch).detach()
         assert fake_imgs.size() == real_imgs.size()
 
         fake_validity = dis_net(fake_imgs)
