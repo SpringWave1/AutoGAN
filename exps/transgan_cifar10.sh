@@ -9,6 +9,9 @@ python train.py \
 --max_iter 50000 \
 --gen_model TransGAN_CIFAR \
 --dis_model ViT_8_8 \
+--df_dim 384 \
+--d_depth 7 \
+--g_depth 5 \
 --latent_dim 128 \
 --gf_dim 256 \
 --df_dim 128 \
@@ -16,8 +19,6 @@ python train.py \
 --d_spectral_norm True \
 --g_lr 0.0002 \
 --d_lr 0.0002 \
---d_depth 7 \
---g_depth 5 \
 --beta1 0.0 \
 --beta2 0.9 \
 --init_type xavier_uniform \
