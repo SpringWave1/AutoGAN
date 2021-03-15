@@ -10,13 +10,13 @@ python train.py \
 --gen_model TransGAN_CIFAR \
 --dis_model ViT_8_8 \
 --df_dim 384 \
+--gf_dim 1024 \
 --d_depth 7 \
 --g_depth 5 \
 --latent_dim 128 \
---gf_dim 256 \
---df_dim 128 \
 --g_spectral_norm False \
 --d_spectral_norm True \
+--optimizer adam \
 --g_lr 0.0002 \
 --d_lr 0.0002 \
 --beta1 0.0 \
