@@ -16,7 +16,6 @@ python train.py \
 --latent_dim 128 \
 --g_spectral_norm False \
 --d_spectral_norm True \
---optimizer adam \
 --g_lr 0.0002 \
 --d_lr 0.0002 \
 --beta1 0.0 \
