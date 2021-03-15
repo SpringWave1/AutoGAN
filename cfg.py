@@ -199,6 +199,8 @@ def parse_args():
                         help='fade in step')
     parser.add_argument('--g_depth', type=int, default=5,
                         help='fade in step')
+    parser.add_argument('--patch_size', type=int, default=4,
+                        help='fade in step')
     opt = parser.parse_args()
 
     return opt
