@@ -201,6 +201,9 @@ def parse_args():
                         help='fade in step')
     parser.add_argument('--patch_size', type=int, default=4,
                         help='fade in step')
+    parser.add_argument('--diff_aug', type=str, default="None",
+                        help='differentiable augmentation type')
+
     opt = parser.parse_args()
 
     return opt
