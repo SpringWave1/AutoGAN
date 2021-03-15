@@ -23,7 +23,10 @@ MODEL_DIR = '/tmp/imagenet'
 DATA_URL = 'http://download.tensorflow.org/models/image/imagenet/inception-2015-12-05.tgz'
 softmax = None
 
+# config = tf.ConfigProto(device_count = {'GPU': 0})
 config = tf.ConfigProto()
+
+config.gpu_options.visible_device_list= '0'
 config.gpu_options.allow_growth = True
 
 
@@ -39,7 +42,7 @@ def get_inception_score(images, splits=10):
     for img in images:
         img = img.astype(np.float32)
         inps.append(np.expand_dims(img, 0))
-    bs = 100
+    bs = 128
     with tf.Session(config=config) as sess:
         preds = []
         n_batches = int(math.ceil(float(len(inps)) / float(bs)))
