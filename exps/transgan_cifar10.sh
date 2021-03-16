@@ -9,8 +9,8 @@ python train.py \
 --max_iter 50000 \
 --gen_model TransGAN_CIFAR \
 --dis_model ViT_8_8 \
---df_dim 384 \
---gf_dim 1024 \
+--gf_dim 256 \
+--df_dim 128 \
 --d_depth 7 \
 --g_depth 5 \
 --latent_dim 128 \

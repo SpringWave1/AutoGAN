@@ -54,7 +54,8 @@ def train_shared(args, gen_net: nn.Module, dis_net: nn.Module, g_loss_history, d
             dis_optimizer.zero_grad()
 
             real_validity = dis_net(real_imgs)
-            fake_imgs = gen_net(z, epoch).detach()
+            # fake_imgs = gen_net(z, epoch).detach()
+            fake_imgs = gen_net(z).detach()
             assert fake_imgs.size() == real_imgs.size(), print(f'fake image size is {fake_imgs.size()}, '
                                                                f'while real image size is {real_imgs.size()}')
 
@@ -134,7 +135,8 @@ def train(args, gen_net: nn.Module, dis_net: nn.Module, gen_optimizer, dis_optim
         dis_optimizer.zero_grad()
 
         real_validity = dis_net(real_imgs)
-        fake_imgs = gen_net(z, epoch).detach()
+        # fake_imgs = gen_net(z, epoch).detach()
+        fake_imgs = gen_net(z).detach()
         print(fake_imgs.size(), real_imgs.size())
         assert fake_imgs.size() == real_imgs.size()
 
