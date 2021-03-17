@@ -275,8 +275,8 @@ def calculate_fid_given_paths_torch(gen_imgs, path, require_grad=False, batch_si
         m2, s2 = _compute_statistics_of_path(path, model, batch_size,
                                              dims, cuda)
         # print(f'GT stat: {m2}, {s2}')
-        fid_value = torch_calculate_frechet_distance(m1.to("cuda:0"), s1.to("cuda:0"), torch.tensor(m2).float().cuda().to("cuda:0"),
-                                                     torch.tensor(s2).float().cuda().to("cuda:0"))
+        fid_value = torch_calculate_frechet_distance(m1, s1, torch.tensor(m2).float().cuda(),
+                                                     torch.tensor(s2).float().cuda())
 
     return fid_value
 
@@ -289,7 +289,6 @@ def get_fid(args, fid_stat, epoch, gen_net, num_img, val_batch_size, writer_dict
 
         eval_iter = num_img // val_batch_size
         img_list = []
-        print('eval_iter', eval_iter)
         for _ in tqdm(range(eval_iter), desc='sample images'):
             z = torch.cuda.FloatTensor(np.random.normal(0, 1, (val_batch_size, args.latent_dim)))
 
@@ -306,11 +305,8 @@ def get_fid(args, fid_stat, epoch, gen_net, num_img, val_batch_size, writer_dict
             if isinstance(gen_imgs, tuple):
                 gen_imgs = gen_imgs[0]
             img_list += [gen_imgs]
-        print('second place')
         img_list = torch.cat(img_list, 0)
-        print('third place')
         fid_score = calculate_fid_given_paths_torch(img_list, fid_stat)
-        print('fourth place')
     if writer_dict:
         writer = writer_dict['writer']
         global_steps = writer_dict['valid_global_steps']
