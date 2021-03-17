@@ -258,9 +258,7 @@ def calculate_fid_given_paths_torch(gen_imgs, path, require_grad=False, batch_si
     """
     if not os.path.exists(path):
         raise RuntimeError('Invalid path: %s' % path)
-    print('first')
     assert gen_imgs.shape[0] >= dims, f'gen_imgs size: {gen_imgs.shape}'  # or will lead to nan
-    print('sec')
     with _get_no_grad_ctx_mgr(require_grad=require_grad):
 
         block_idx = InceptionV3.BLOCK_INDEX_BY_DIM[dims]
