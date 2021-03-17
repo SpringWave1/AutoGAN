@@ -288,6 +288,7 @@ def get_fid(args, fid_stat, epoch, gen_net, num_img, val_batch_size, writer_dict
         gen_net = gen_net.eval()
 
         eval_iter = num_img // val_batch_size
+        print('eval_iter', eval_iter)
         img_list = []
         for _ in tqdm(range(eval_iter), desc='sample images'):
             z = torch.cuda.FloatTensor(np.random.normal(0, 1, (val_batch_size, args.latent_dim)))
