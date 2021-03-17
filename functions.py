@@ -17,8 +17,8 @@ from torchvision.utils import make_grid
 from tqdm import tqdm
 
 from utils.fid_score import calculate_fid_given_paths
-from utils.inception_score import get_inception_score
 from utils.torch_fid_score import get_fid
+from utils.inception_score import get_inception_score
 
 logger = logging.getLogger(__name__)
  
@@ -273,6 +273,7 @@ def get_is(args, gen_net: nn.Module, num_img):
 
     return mean
 
+# def validate(args, fixed_z, fid_stat, gen_net: nn.Module, writer_dict, clean_dir=True):
 
 def validate(args, fixed_z, fid_stat, epoch, gen_net: nn.Module, writer_dict, clean_dir=True):
     writer = writer_dict['writer']
