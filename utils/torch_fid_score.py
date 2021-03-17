@@ -288,8 +288,8 @@ def get_fid(args, fid_stat, epoch, gen_net, num_img, val_batch_size, writer_dict
         gen_net = gen_net.eval()
 
         eval_iter = num_img // val_batch_size
-        print('eval_iter', eval_iter)
         img_list = []
+        print('eval_iter', eval_iter)
         for _ in tqdm(range(eval_iter), desc='sample images'):
             z = torch.cuda.FloatTensor(np.random.normal(0, 1, (val_batch_size, args.latent_dim)))
 
@@ -306,10 +306,11 @@ def get_fid(args, fid_stat, epoch, gen_net, num_img, val_batch_size, writer_dict
             if isinstance(gen_imgs, tuple):
                 gen_imgs = gen_imgs[0]
             img_list += [gen_imgs]
-
+        print('second place')
         img_list = torch.cat(img_list, 0)
+        print('third place')
         fid_score = calculate_fid_given_paths_torch(img_list, fid_stat)
-
+        print('fourth place')
     if writer_dict:
         writer = writer_dict['writer']
         global_steps = writer_dict['valid_global_steps']
