@@ -20,7 +20,7 @@ from utils.fid_score import calculate_fid_given_paths
 from utils.inception_score import get_inception_score
 
 logger = logging.getLogger(__name__)
-
+ 
 
 def train_shared(args, gen_net: nn.Module, dis_net: nn.Module, g_loss_history, d_loss_history, controller, gen_optimizer
                  , dis_optimizer, train_loader, prev_hiddens=None, prev_archs=None):
@@ -54,8 +54,9 @@ def train_shared(args, gen_net: nn.Module, dis_net: nn.Module, g_loss_history, d
             dis_optimizer.zero_grad()
 
             real_validity = dis_net(real_imgs)
-            # fake_imgs = gen_net(z, epoch).detach()
-            fake_imgs = gen_net(z).detach()
+            # change
+            fake_imgs = gen_net(z, epoch).detach()
+            # fake_imgs = gen_net(z).detach()
             assert fake_imgs.size() == real_imgs.size(), print(f'fake image size is {fake_imgs.size()}, '
                                                                f'while real image size is {real_imgs.size()}')
 
@@ -135,8 +136,9 @@ def train(args, gen_net: nn.Module, dis_net: nn.Module, gen_optimizer, dis_optim
         dis_optimizer.zero_grad()
 
         real_validity = dis_net(real_imgs)
-        # fake_imgs = gen_net(z, epoch).detach()
-        fake_imgs = gen_net(z).detach()
+        # Change Version
+        fake_imgs = gen_net(z, epoch).detach()
+        # fake_imgs = gen_net(z).detach()
         # print(fake_imgs.size(), real_imgs.size())
         assert fake_imgs.size() == real_imgs.size()
 
@@ -157,8 +159,8 @@ def train(args, gen_net: nn.Module, dis_net: nn.Module, gen_optimizer, dis_optim
             gen_optimizer.zero_grad()
 
             gen_z = torch.cuda.FloatTensor(np.random.normal(0, 1, (args.gen_batch_size, args.latent_dim)))
-            # gen_imgs = gen_net(gen_z, epoch)
-            gen_imgs = gen_net(gen_z)
+            gen_imgs = gen_net(gen_z, epoch)
+            # gen_imgs = gen_net(gen_z)
             fake_validity = dis_net(gen_imgs)
 
             # cal loss
