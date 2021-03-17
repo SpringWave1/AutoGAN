@@ -6,7 +6,7 @@ python train.py \
 --dataset cifar10 \
 --bottom_width 8 \
 --img_size 32 \
---max_iter 500 \
+--max_iter 50000 \
 --gen_model TransGAN_CIFAR \
 --dis_model ViT_8_8 \
 --gf_dim 256 \
