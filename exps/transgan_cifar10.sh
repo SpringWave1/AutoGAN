@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 python train.py \
--gen_bs 128 \
--dis_bs 64 \
+-gen_bs 64 \
+-dis_bs 32 \
 --dataset cifar10 \
 --bottom_width 8 \
 --img_size 32 \
