@@ -258,9 +258,9 @@ def calculate_fid_given_paths_torch(gen_imgs, path, require_grad=False, batch_si
     """
     if not os.path.exists(path):
         raise RuntimeError('Invalid path: %s' % path)
-
+    print('first')
     assert gen_imgs.shape[0] >= dims, f'gen_imgs size: {gen_imgs.shape}'  # or will lead to nan
-
+    print('sec')
     with _get_no_grad_ctx_mgr(require_grad=require_grad):
 
         block_idx = InceptionV3.BLOCK_INDEX_BY_DIM[dims]
@@ -275,8 +275,8 @@ def calculate_fid_given_paths_torch(gen_imgs, path, require_grad=False, batch_si
         m2, s2 = _compute_statistics_of_path(path, model, batch_size,
                                              dims, cuda)
         # print(f'GT stat: {m2}, {s2}')
-        fid_value = torch_calculate_frechet_distance(m1, s1, torch.tensor(m2).float().cuda(),
-                                                     torch.tensor(s2).float().cuda())
+        fid_value = torch_calculate_frechet_distance(m1, s1.to("cuda:0"), torch.tensor(m2).float().cuda().to("cuda:0"),
+                                                     torch.tensor(s2).float().cuda().to("cuda:0"))
 
     return fid_value
 
@@ -299,13 +299,14 @@ def get_fid(args, fid_stat, epoch, gen_net, num_img, val_batch_size, writer_dict
                     label = label.type(torch.cuda.LongTensor)
                 else:
                     label = torch.randint(low=0, high=args.n_classes, size=(z.shape[0],), device='cuda')
-                gen_imgs = gen_net(z, epoch)
+                gen_imgs = gen_net(z, epoch).detach()
             else:
-                gen_imgs = gen_net(z, epoch)
+                gen_imgs = gen_net(z, epoch).detach()
             if isinstance(gen_imgs, tuple):
                 gen_imgs = gen_imgs[0]
             img_list += [gen_imgs]
         img_list = torch.cat(img_list, 0)
+        print(len(img_list), 'img length')
         fid_score = calculate_fid_given_paths_torch(img_list, fid_stat)
     if writer_dict:
         writer = writer_dict['writer']
