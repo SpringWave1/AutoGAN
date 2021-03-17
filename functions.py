@@ -273,7 +273,7 @@ def get_is(args, gen_net: nn.Module, num_img):
 
     return mean
 
-def validate(args, fixed_z, fid_stat, gen_net: nn.Module, writer_dict, clean_dir=True):
+def validate(args, fixed_z, fid_stat, epoch, gen_net: nn.Module, writer_dict, clean_dir=True):
     writer = writer_dict['writer']
     global_steps = writer_dict['valid_global_steps']
 
@@ -281,7 +281,7 @@ def validate(args, fixed_z, fid_stat, gen_net: nn.Module, writer_dict, clean_dir
     gen_net = gen_net.eval()
 
     # generate images
-    sample_imgs = gen_net(fixed_z)
+    sample_imgs = gen_net(fixed_z, epoch)
     img_grid = make_grid(sample_imgs, nrow=5, normalize=True, scale_each=True)
 
     # get fid and inception score
