@@ -315,15 +315,15 @@ def validate(args, fixed_z, fid_stat, epoch, gen_net: nn.Module, writer_dict, cl
         os.system('rm -r {}'.format(fid_buffer_dir))
     else:
         logger.info(f'=> sampled images are saved to {fid_buffer_dir}')
-    print('first')
+    # print('first')
     writer.add_image('sampled_images', img_grid, global_steps)
     writer.add_scalar('Inception_score/mean', mean, global_steps)
     writer.add_scalar('Inception_score/std', std, global_steps)
     writer.add_scalar('FID_score', fid_score, global_steps)
-    print('second')
+    # print('second')
     writer_dict['valid_global_steps'] = global_steps + 1
-    print('third')
-    return fid_score
+    # print('third')
+    return mean, fid_score
 
 # def validate(args, fixed_z, fid_stat, epoch, gen_net: nn.Module, writer_dict, clean_dir=True):
 #     writer = writer_dict['writer']
